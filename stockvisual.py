@@ -10,7 +10,7 @@ st.set_page_config(layout="wide")
 st.title("📈 Stock Market Dashboard")
 
 # Load data from the combined CSV
-df = pd.read_csv("combined_for_powerbi.csv")
+df = pd.read_csv("exported_for_powerbi.csv")
 
 # Preprocessing
 df['date'] = pd.to_datetime(df['date'])
