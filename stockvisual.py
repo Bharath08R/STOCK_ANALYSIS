@@ -9,11 +9,8 @@ from glob import glob
 st.set_page_config(layout="wide")
 st.title("📈 Stock Market Dashboard")
 
-# Load CSVs from a folder
-folder =r"C:\Users\isbmy\.vscode\STOCK_PROJECT\final_csvs"
-all_files = glob(os.path.join(folder, "*.csv"))
-df_list = [pd.read_csv(f).assign(Ticker=os.path.basename(f).replace(".csv", "")) for f in all_files]
-df = pd.concat(df_list, ignore_index=True)
+# Load data from the combined CSV
+df = pd.read_csv("combined_for_powerbi.csv")
 
 # Preprocessing
 df['date'] = pd.to_datetime(df['date'])
