@@ -1,6 +1,6 @@
 📊 Stock Market Analysis Project
 
-A complete pipeline for extracting, cleaning, and visualizing stock market data using Python and Power BI.
+A complete pipeline for extracting, cleaning, and visualizing stock market data using Python, Streamlit and Power BI.
 
 🚀 Project Overview
 
@@ -19,9 +19,9 @@ Stock correlation heatmaps
 📂 Folder Structure
 
 project_root/
-├── raw_yaml_data/            # Monthly folders with YAML files (daily stock data)
 ├── final_csvs/               # One CSV per stock (after transformation)
-├── exported_for_powerbi.csv  # Consolidated CSV for Power BI
+├── combined_data.csv/        # all in one CSV
+├── exported_for_powerbi.csv  # Consolidated and udated CSV for Power BI
 ├── stockvisual.py            # Streamlit dashboard
 ├── stock1.ipynb              # Yaml file to CSV file conversion
 ├── Sector_data.csv           # Reference CSV with COMPANY and sector info
@@ -33,7 +33,7 @@ Raw YAML files are organized by month and contain daily stock data for various t
 
 A Python script reads all YAML files recursively, groups the data by Ticker, and saves them as individual CSV files.
 
-Script: extract_yaml_to_csv.py
+Script: stock1.ipynb
 
 Key Tasks:
 
@@ -47,7 +47,7 @@ Export one CSV per ticker
 
 🧹 2. Data Cleaning & Merging
 
-Script: export_for_powerbi.py
+Script: stock1.ipynb
 
 This script:
 
