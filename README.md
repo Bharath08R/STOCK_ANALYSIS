@@ -23,7 +23,8 @@ project_root/
 ├── combined_data.csv/        # all in one CSV
 ├── exported_for_powerbi.csv  # Consolidated and udated CSV for Power BI
 ├── stockvisual.py            # Streamlit dashboard
-├── stock1.ipynb              # Yaml file to CSV file conversion
+├── stock1.ipynb              # Yaml file to CSV file conversion and all other codes
+├── stockBI.pbix              # powerBI presentation
 ├── Sector_data.csv           # Reference CSV with COMPANY and sector info
 └── README.md                 # This file
 
@@ -104,15 +105,6 @@ Sector performance by average yearly return
 Monthly movers: top/bottom 5 per month
 
 Heatmap (via Python visual): Stock correlation
-
-Advanced DAX Examples:
-
-Volatility = STDEVX.P(FILTER(StockData, NOT(ISBLANK(StockData[daily_return]))), StockData[daily_return])
-
-Monthly Return =
-VAR First = CALCULATE(FIRSTNONBLANK(StockData[close], 1), ALLEXCEPT(StockData, StockData[Ticker], StockData[month]))
-VAR Last = CALCULATE(LASTNONBLANK(StockData[close], 1), ALLEXCEPT(StockData, StockData[Ticker], StockData[month]))
-RETURN DIVIDE(Last - First, First)
 
 ✅ Requirements
 
