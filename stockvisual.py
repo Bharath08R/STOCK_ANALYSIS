@@ -21,9 +21,9 @@ df['month'] = df['date'].dt.to_period('M')
 
 # Yearly return
 yearly = df.groupby('Ticker').agg(first_price=('close', 'first'),
-                                   last_price=('close', 'last'),
-                                   COMPANY=('COMPANY', 'first'),
-                                   sector=('sector', 'first'))
+                                 last_price=('close', 'last'),
+                                 COMPANY=('COMPANY', 'first'),
+                                 sector=('sector', 'first')).reset_index()
 yearly['yearly_return'] = (yearly['last_price'] - yearly['first_price']) / yearly['first_price']
 
 # Sidebar
@@ -58,7 +58,7 @@ elif option == "Volatility":
 # 3. Cumulative Return
 elif option == "Cumulative Return":
     st.subheader("📈 Cumulative Return Over Time")
-    df['cumulative_return'] = df.groupby('Ticker')['daily_return'].apply(lambda x: (1 + x.fillna(0)).cumprod())
+    df['cumulative_return'] = df.groupby('Ticker')['daily_return'].transform(lambda x: (1 + x.fillna(0)).cumprod())
     top5 = df.groupby('Ticker')['cumulative_return'].last().sort_values(ascending=False).head(5).index
     fig, ax = plt.subplots(figsize=(12,6))
     for t in top5:
@@ -88,7 +88,11 @@ elif option == "Monthly Movers":
     st.subheader("📅 Monthly Gainers & Losers")
     month_selected = st.selectbox("Select Month", sorted(df['month'].astype(str).unique()))
     month_df = df[df['month'].astype(str) == month_selected]
-    monthly = month_df.groupby('Ticker').agg(start=('close', 'first'), end=('close', 'last'))
+    monthly = month_df.groupby('Ticker').agg(
+        start=('close', 'first'),
+        end=('close', 'last'),
+        COMPANY=('COMPANY', 'first')
+    ).reset_index()
     monthly['return'] = (monthly['end'] - monthly['start']) / monthly['start']
     top5 = monthly.sort_values('return', ascending=False).head(5)
     bottom5 = monthly.sort_values('return').head(5)
@@ -96,7 +100,7 @@ elif option == "Monthly Movers":
     col1, col2 = st.columns(2)
     with col1:
         st.write("Top 5 Gainers")
-        st.bar_chart(top5['return'])
+        st.bar_chart(top5.set_index('COMPANY')['return'])
     with col2:
         st.write("Top 5 Losers")
-        st.bar_chart(bottom5['return'])
+        st.bar_chart(bottom5.set_index('COMPANY')['return'])
